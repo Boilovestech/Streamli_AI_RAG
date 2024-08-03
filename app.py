@@ -75,7 +75,7 @@ def main():
     st.sidebar.write("📌 results:")
     st.sidebar.write("📌 discussion:")
     st.sidebar.write("📌 conclusion:")
-    st.sidebar.write("Example: 'abstract: What is the main topic?'/n Please upload RESEARCH PAPERS ONLY")
+    st.sidebar.write("Example: 'abstract: What is the main topic?'\n Please upload RESEARCH PAPERS ONLY")
     # Initialize session state
     if "messages" not in st.session_state:
         st.session_state.messages = []
