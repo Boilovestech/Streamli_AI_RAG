@@ -6,6 +6,7 @@ import PyPDF2
 
 
 
+
 groq_client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 GROQ_MODELS = [
     "mixtral-8x7b-32768",
@@ -101,16 +102,21 @@ def main():
 
     # Chat input
     if prompt := st.chat_input("Ask a question about the PDF (e.g., 'abstract: What is the main topic?'):"):
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        st.chat_message("user").markdown(prompt)
+        if not st.session_state.pdf_content:
+            st.error("Please upload a PDF before asking questions.")
+        elif ": " not in prompt:
+            st.error("Please specify a section of the PDF to query (e.g., 'abstract: What is the main topic?').")
+        else:
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.chat_message("user").markdown(prompt)
 
-        with st.spinner("Generating response..."):
-            section, query = prompt.split(": ", 1) if ": " in prompt else ("all", prompt)
-            context = st.session_state.pdf_sections.get(section.lower(), st.session_state.pdf_content)
-            response = generate_response(query, model, context)
-        
-        st.session_state.messages.append({"role": "assistant", "content": response})
-        st.chat_message("assistant").markdown(response)
+            with st.spinner("Generating response..."):
+                section, query = prompt.split(": ", 1)
+                context = st.session_state.pdf_sections.get(section.lower(), st.session_state.pdf_content)
+                response = generate_response(query, model, context)
+            
+            st.session_state.messages.append({"role": "assistant", "content": response})
+            st.chat_message("assistant").markdown(response)
 
 if __name__ == "__main__":
     main()
