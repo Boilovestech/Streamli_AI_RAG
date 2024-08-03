@@ -3,9 +3,6 @@ from typing import List
 import streamlit as st
 from groq import Groq
 import PyPDF2
-from dotenv import load_dotenv
-
-load_dotenv()
 
 
 
