@@ -9,7 +9,7 @@ import PyPDF2
 
 groq_client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 GROQ_MODELS = [
-    "mixtral-8x7b-32768",
+    "llama-3.1-8b-instant",
     "llama2-70b-4096",
     "gemma-7b-it",
 ]
