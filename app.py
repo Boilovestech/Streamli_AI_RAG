@@ -16,7 +16,7 @@ GROQ_MODELS = [
 
 def generate_response(query: str, model: str, context: str = "") -> str:
     try:
-        prompt = f"Context: {context}\n\nQuestion: {query}\n\nAnswer:"
+        prompt = f"Context:{context}\n\nQuestion: {query}\n\nAnswer:"
         response = groq_client.chat.completions.create(
             messages=[{"role": "user", "content": prompt}],
             model=model,
